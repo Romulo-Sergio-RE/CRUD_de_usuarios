@@ -11,21 +11,24 @@ export const LoginPage = () =>{
 
     const clickSignIn =  async (event: FormEvent<HTMLFormElement>)=>{
         event.preventDefault()
-        let test = await signIn(email, password)
-        console.log(test)
+        let signInUser = await signIn(email, password)
+        if(signInUser){
+            validadeEmailAndPassword()
+        }
         setEmail("")
         setPassword("")
-        console.log(users)
+    }
+    const validadeEmailAndPassword = ()=>{
+        users?.map((a) => {
+            if (a.email === email && a.password === password) {
+                return navigate("/Home")
+            }else{
+                alert("seus dados estao errados")
+            }
+        })
     }
     return(
         <div>
-            {
-                users?.map((a)=>{
-                    return(
-                        <p key={a.name}>{a.email}</p>
-                    )
-                })
-            }
             <form onSubmit={(event) => clickSignIn(event)}>
                 <label>Email:</label>
                 <input 
