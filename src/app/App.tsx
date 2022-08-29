@@ -1,9 +1,12 @@
 import React from 'react';
-import { Routes } from './routes';
+import { Rotas } from './routes';
+import { GlobalStyles } from './GlobalStyled';
 
 export const App = () => {
   return (
-    <Routes />
+    <Rotas>
+      <GlobalStyles />
+    </Rotas>
   );
 }
 

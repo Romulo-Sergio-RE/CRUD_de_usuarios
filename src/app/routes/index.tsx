@@ -1,13 +1,13 @@
-import { BrowserRouter, Route, Routes as Switch, } from "react-router-dom";
-import { HomePage, Login,  } from "../pages";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { LoginPage }  from "../pages/login/index";
 
-export const Routes = () => {
+export const Rotas = ({ children }: any) => {
     return(
         <BrowserRouter>
-            <Switch>
-                <Route path="/Home" element={<HomePage />}/>
-                <Route path="/" element={<Login />}/>
-            </Switch>
+            { children }
+            <Routes>
+                <Route path="/" element={<LoginPage />}/>
+            </Routes>
         </BrowserRouter>
     );
 };
