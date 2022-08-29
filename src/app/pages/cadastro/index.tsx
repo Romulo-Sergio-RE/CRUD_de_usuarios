@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useContext, useState } from "react"
+import { UserContext } from "../../context/User/UserContext"
 
 export const CadastroPage = () =>{
 
@@ -6,15 +7,18 @@ export const CadastroPage = () =>{
     const[email, setEmail] = useState("")
     const[password, setPassword] = useState("")
 
-    const register = (event: FormEvent<HTMLFormElement>) =>{
+    const{register}=useContext(UserContext)
+
+    const clickRegister = (event: FormEvent<HTMLFormElement>) =>{
         event.preventDefault()
-        console.log(name)
-        console.log(email)
-        console.log(password)
+        register(name,email,password)
+        setName("")
+        setEmail("")
+        setPassword("")
     }
 
     return(
-        <form onSubmit={(event) => register(event)}>
+        <form onSubmit={(event) => clickRegister(event)}>
             <label>Name:</label>
             <input 
                 type="text" 

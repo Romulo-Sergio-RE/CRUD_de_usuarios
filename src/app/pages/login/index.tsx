@@ -1,32 +1,48 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useContext, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { UserContext } from "../../context/User/UserContext"
 
 export const LoginPage = () =>{
-
     const[email, setEmail] = useState("")
-    const[senha, setSenha] = useState("")
+    const[password, setPassword] = useState("")
+    const{signIn, users} = useContext(UserContext)
 
-    const signIn = (event: FormEvent<HTMLFormElement>)=>{
+    const navigate = useNavigate()
+
+    const clickSignIn =  async (event: FormEvent<HTMLFormElement>)=>{
         event.preventDefault()
-        console.log(email)
-        console.log(senha)
+        let test = await signIn(email, password)
+        console.log(test)
+        setEmail("")
+        setPassword("")
+        console.log(users)
     }
     return(
-        <form onSubmit={(event) => signIn(event)}>
-            <label>Email:</label>
-            <input 
-                type="text"
-                value={email}
-                onChange={(e)=> setEmail(e.target.value)} 
-            />
+        <div>
+            {
+                users?.map((a)=>{
+                    return(
+                        <p key={a.name}>{a.email}</p>
+                    )
+                })
+            }
+            <form onSubmit={(event) => clickSignIn(event)}>
+                <label>Email:</label>
+                <input 
+                    type="text"
+                    value={email}
+                    onChange={(e)=> setEmail(e.target.value)} 
+                />
 
-            <label>Senha:</label>
-            <input 
-                type="text" 
-                value={senha}
-                onChange={(e)=> setSenha(e.target.value)} 
-            />
+                <label>Senha:</label>
+                <input 
+                    type="text" 
+                    value={password}
+                    onChange={(e)=> setPassword(e.target.value)} 
+                />
 
-            <button type="submit">LOGIN</button>
-        </form>
+                <button type="submit">LOGIN</button>
+            </form>
+        </div>
     )
 }
