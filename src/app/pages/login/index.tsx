@@ -12,11 +12,6 @@ export const LoginPage = () =>{
     async function clickSignIn (event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         let test = await signIn(email, password)
-        if(test){
-            console.log("users")
-            navigate("/Home")
-        }
-        console.log(users)
         setEmail("")
         setPassword("") 
     }
