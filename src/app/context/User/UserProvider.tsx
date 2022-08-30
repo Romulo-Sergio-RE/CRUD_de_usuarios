@@ -10,7 +10,7 @@ export const UserProvider = ({children}: any) =>{
 
     const signIn = async (email:string, password:string)=>{
         const data = await api.signIn(email, password)
-        if(data!== null){
+        if(data !== null){
             setUsers(data)
             return true
         }

@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useState } from "react"
+import { FormEvent, useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from "../../context/User/UserContext"
 
@@ -8,22 +8,18 @@ export const LoginPage = () =>{
     const{signIn, users} = useContext(UserContext)
 
     const navigate = useNavigate()
-    const clickSignIn = (event: FormEvent<HTMLFormElement>)=>{
+
+    async function clickSignIn (event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
-        signIn(email, password)
+        let test = await signIn(email, password)
+        if(test){
+            console.log("users")
+            navigate("/Home")
+        }
+        console.log(users)
         setEmail("")
-        setPassword("")
-        // if(users !== null){
-        //     users?.map((a) => {
-        //         if (a.email === email) {
-        //             return navigate("/Home")
-        //         }else{
-        //             alert("seus dados estao errados")
-        //         }
-        //     })
-        // }
+        setPassword("") 
     }
-    console.log(users)
     return(
         <div>
             <form onSubmit={(event) => clickSignIn(event)}>
