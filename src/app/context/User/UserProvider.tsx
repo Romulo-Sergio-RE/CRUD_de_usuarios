@@ -5,12 +5,13 @@ import { UserContext } from "./UserContext"
 
 export const UserProvider = ({children}: any) =>{
 
-    const[users, setUsers] = useState<User [] | null>(null);
+    const[users, setUsers] = useState<User | null>(null);
     const api = useApi();
 
     const signIn = async (email:string, password:string)=>{
         const data = await api.signIn(email, password)
-        if(data !== null){
+        console.log(data)
+        if(data){
             setUsers(data)
             return true
         }

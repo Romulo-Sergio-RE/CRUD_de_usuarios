@@ -12,9 +12,13 @@ export const LoginPage = () =>{
     async function clickSignIn (event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
         let test = await signIn(email, password)
+
         setEmail("")
         setPassword("") 
+        console.log(test)
+        console.log("asfdsf " +users)
     }
+    console.log(users)
     return(
         <div>
             <form onSubmit={(event) => clickSignIn(event)}>
