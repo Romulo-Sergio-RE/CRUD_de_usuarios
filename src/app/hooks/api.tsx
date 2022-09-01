@@ -13,7 +13,7 @@ export const useApi = ()=>({
         })
         return response.data
     },
-    register: async (name:string, email:string, password:string)=>{
+    registerUser: async (name:string, email:string, password:string)=>{
         const response = await api.post("/users",{
             "name":name,
             "email":email, 

@@ -5,12 +5,11 @@ import { UserContext } from "./UserContext"
 
 export const UserProvider = ({children}: any) =>{
 
-    const[users, setUsers] = useState<User | null>(null);
+    const[users, setUsers] = useState<User []| null>(null);
     const api = useApi();
 
     const signIn = async (email:string, password:string)=>{
         const data = await api.signIn(email, password)
-        console.log(data)
         if(data){
             setUsers(data)
             return true
@@ -18,8 +17,8 @@ export const UserProvider = ({children}: any) =>{
         return false
     }
 
-    const register = async (name:string, email:string, password:string)=>{
-        const data = await api.register(name, email, password)
+    const registerUser = async (name:string, email:string, password:string)=>{
+        const data = await api.registerUser(name, email, password)
         if(data.users){
             return true
         }
@@ -27,7 +26,7 @@ export const UserProvider = ({children}: any) =>{
     }
     
     return(
-        <UserContext.Provider value={{users,register, signIn}}>
+        <UserContext.Provider value={{users,registerUser, signIn}}>
             { children }
         </UserContext.Provider>
     )
