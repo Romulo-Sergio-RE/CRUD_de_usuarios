@@ -5,6 +5,7 @@ import { UserContext } from "../../context/User/UserContext"
 import { Loddgin } from "../lodding"
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { ContainerLoginPage } from "./styleLogin"
 
 type FormDataSignIn = {
     email: string,
@@ -53,28 +54,35 @@ export const LoginPage = () =>{
     }
 
     return(
-        <div>
+        <ContainerLoginPage>
             {isLodding ?
                 <Loddgin />
                 :
                 null
             }
-            <form onSubmit={handleSubmit(clickSignIn)}>
-                <label>Email:</label>
-                <input 
-                    type="text"
-                    {...register("email")}
-                />
-                <span>{errors.email?.message}</span>
-
-                <label>Senha:</label>
-                <input 
-                    type="text" 
-                    {...register("password")}
-                />
-                <span>{errors.password?.message}</span>
-                <button type="submit">LOGIN</button>
-            </form>
-        </div>
+            <div className="ContainerFormLoginPage">
+                <form onSubmit={handleSubmit(clickSignIn)} className="formularioLoginPage">
+                    <label className="labelLoginPage">Email:
+                        <input 
+                            className="inputLoginPage"
+                            type="text"
+                            placeholder="Digite seu email"
+                            {...register("email")}
+                        />
+                        <span className="spanLoginPage">{errors.email?.message}</span>
+                    </label>
+                    <label className="labelLoginPage">Senha:
+                        <input 
+                            className="inputLoginPage"
+                            type="text" 
+                            placeholder="Digite sua senha"
+                            {...register("password")}
+                        />
+                        <span className="spanLoginPage">{errors.password?.message}</span>
+                    </label>
+                    <button className="buttonLoginPage" type="submit">LOGIN</button>
+                </form>
+            </div>
+        </ContainerLoginPage>
     )
 }

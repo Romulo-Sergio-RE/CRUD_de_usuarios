@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import { UserContext } from "../../context/User/UserContext"
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { ContainerLoginPage } from "./styleCadastro";
 
 type FormData = {
     name: string,
@@ -33,36 +34,49 @@ export const CadastroPage = () =>{
     }
 
     return(
-        <form onSubmit={handleSubmit(clickRegister)}>
-            <label>Name:</label>
-            <input 
-                type="text" 
-                placeholder="name"
-                {...register("name")}
-            />
-            <span>{errors.name?.message}</span>
-            <label>Email:</label>
-            <input 
-                type="email" 
-                placeholder="email" 
-                {...register("email")}
-            />
-            <span>{errors.email?.message}</span>
-            <label>Senha:</label>
-            <input 
-                type="password" 
-                placeholder='password' 
-                {...register("password")}
-            />
-            <span>{errors.password?.message}</span>
-            <label>Confirmar Senha:</label>
-            <input 
-                type="password" 
-                placeholder='password' 
-                {...register("confirmPassword")}
-            />
-            <span>{errors.confirmPassword?.message}</span>
-            <button type="submit">REGISTER</button>
-        </form>
+        <ContainerLoginPage>
+            <div className="ContainerFormRegisterPage">
+                <form onSubmit={handleSubmit(clickRegister)} className="formularioRegisterPage">
+                    <label className="labelRegisterPage">Name:
+                        <input 
+                            className="inputRegisterPage"
+                            type="text" 
+                            placeholder="name"
+                            {...register("name")}
+                        />
+                        <span className="spanRegisterPage">{errors.name?.message}</span>
+                    </label>
+
+                    <label className="labelRegisterPage">Email:
+                        <input 
+                            className="inputRegisterPage"
+                            type="email" 
+                            placeholder="email" 
+                            {...register("email")}
+                        />
+                        <span className="spanRegisterPage">{errors.email?.message}</span>
+                    </label>
+                    <label className="labelRegisterPage">Senha:
+                        <input 
+                            className="inputRegisterPage"
+                            type="password" 
+                            placeholder='password' 
+                            {...register("password")}
+                        />
+                        <span className="spanRegisterPage">{errors.password?.message}</span>
+                    </label>
+                    <label className="labelRegisterPage">Confirmar Senha:
+                        <input 
+                            className="inputRegisterPage"
+                            type="password" 
+                            placeholder='password' 
+                            {...register("confirmPassword")}
+                        />
+                        <span className="spanRegisterPage">{errors.confirmPassword?.message}</span>
+                    </label>
+                    <button className="buttonRegisterPage" type="submit">REGISTER</button>
+                </form>
+            </div>
+        </ContainerLoginPage>
     )
 }
