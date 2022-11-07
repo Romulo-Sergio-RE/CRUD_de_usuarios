@@ -1,8 +1,5 @@
-import axios from "axios";
+import api from "../services/api";
 
-const api = axios.create({
-    baseURL:"http://localhost:3333"
-})
 export const useApi = ()=>({
     signIn: async (email:string, password:string)=>{
         const response = await api.get("/users",{
@@ -11,13 +8,18 @@ export const useApi = ()=>({
                 "password":password
             }
         })
-        return response.data
+
+        return response
     },
     registerUser: async (name:string, email:string, password:string)=>{
+        const token = Math.random().toString(16).substr(2)
         const response = await api.post("/users",{
-            "name":name,
-            "email":email, 
-            "password":password
+            "token":token,
+            "userData":{
+                "name":name,
+                "email":email, 
+                "password":password,
+            }
         })
         return response.data
     }

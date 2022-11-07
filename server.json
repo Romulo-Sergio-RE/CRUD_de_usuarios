@@ -1,16 +1,13 @@
 {
   "users": [
     {
-      "name": "romulo",
-      "email": "romulo@gmail.com",
-      "password": "123456789",
-      "id": 1
-    },
-    {
-      "name": "teste",
-      "email": "teste@gmail.com",
-      "password": "12345",
-      "id": 2
+      "token": "38f8554bb8f93",
+      "userData": {
+        "name": "sergio",
+        "email": "sergio@gmail.com",
+        "password": "123456789"
+      },
+      "id": 5
     }
   ]
 }

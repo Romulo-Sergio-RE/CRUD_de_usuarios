@@ -1,88 +1,44 @@
-import { FormEvent, useContext, useEffect, useState } from "react"
-import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router-dom"
-import { UserContext } from "../../context/User/UserContext"
-import { Loddgin } from "../lodding"
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
-import { ContainerLoginPage } from "./styleLogin"
+import { useState } from "react"
+import { useApi } from "../../hooks/api";
+import { ContainerLoginPage } from "./styled"
 
-type FormDataSignIn = {
-    email: string,
-    password: string,
-}
-const schema = yup.object({
-    email: yup.string().email("digite um email valido").required("O email e obrigatorio"),
-    password: yup.string().required("O senha e obrigatorio").min(6,"a senha deve ter pelo menos 6 digitos"),
-}).required();
-  
 export const LoginPage = () =>{
-    const[email, setEmail] = useState("");
-    const[password, setPassword] = useState("");
-    const{signIn, users} = useContext(UserContext);
+    const[email, setEmail] = useState<any>([]);
+    const[password, setPassword] = useState<any>([]);
     const[isLodding, setIsLodding] = useState(false);
 
-    const {register, handleSubmit, formState: { errors } } = useForm<FormDataSignIn>({
-        resolver: yupResolver(schema)
-    });
+    const teste = useApi()
 
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            if(users?.find((a)=> a.email === email && a.password === password)){
-                navigate("/Home");
-            }else if(users?.map((a)=> a.email !== email && a.password !== password)){
-                userNoValidate();
-            }
-        }, 2000);
-        
-        return () => clearTimeout(timeout);
-    }, [isLodding]);
-
-    const userNoValidate = ()=>{
-        setIsLodding(false);
-        setEmail("");
-        setPassword("");
+    const enviarDatdo = async (event: React.FormEvent<HTMLFormElement>) =>{
+        event.preventDefault()
+        const reponse = await teste.signIn("sergio@gmail.com","123456789")
+        //reponse.map((a:any) => a.userData)
+        console.log(reponse)
     }
-
-    async function clickSignIn (dataUser: any) {
-        await signIn(dataUser.email, dataUser.password);
-        setEmail(dataUser.email);
-        setPassword(dataUser.password);
-        setIsLodding(true);
-    }
-
+    
     return(
         <ContainerLoginPage>
-            {isLodding ?
-                <Loddgin />
-                :
-                null
-            }
-            <div className="ContainerFormLoginPage">
-                <form onSubmit={handleSubmit(clickSignIn)} className="formularioLoginPage">
-                    <label className="labelLoginPage">Email:
-                        <input 
-                            className="inputLoginPage"
-                            type="text"
-                            placeholder="Digite seu email"
-                            {...register("email")}
-                        />
-                        <span className="spanLoginPage">{errors.email?.message}</span>
-                    </label>
-                    <label className="labelLoginPage">Senha:
-                        <input 
-                            className="inputLoginPage"
-                            type="text" 
-                            placeholder="Digite sua senha"
-                            {...register("password")}
-                        />
-                        <span className="spanLoginPage">{errors.password?.message}</span>
-                    </label>
-                    <button className="buttonLoginPage" type="submit">LOGIN</button>
-                </form>
-            </div>
+            <form onSubmit={enviarDatdo}>
+                <div>
+                    <label>Email:</label>
+                    <input
+                        value={email}
+                        onChange={(e)=>setEmail(e.target.value)}
+                        type={"text"}
+                        placeholder={"digite seu Email"}
+                    />
+                </div>
+                <div>
+                    <label>Senha:</label>
+                    <input
+                        value={password}
+                        onChange={(e)=>setPassword(e.target.value)}
+                        type={"text"}
+                        placeholder={"digite seu Password"}
+                    />
+                </div>
+                <button>Envair</button>
+            </form>
         </ContainerLoginPage>
     )
 }
